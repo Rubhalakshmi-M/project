@@ -1,0 +1,28 @@
+#define BLYNK_TEMPLATE_ID "TMPL3JlKW_VV8"
+#define BLYNK_TEMPLATE_NAME "ledcontrol"
+#define BLYNK_AUTH_TOKEN "sCdGqR1hy96e_VDZllgz7QF91BhIllU6"
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+char auth[] = "sCdGqR1hy96e_VDZllgz7QF91BhIllU6";
+char ssid[] = "Ruby";
+char pass[] = "Ruby@0410";
+
+#define LED_PIN D2  // GPIO4
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
+  
+  Serial.begin(9600);
+  Blynk.begin(auth, ssid, pass);
+}
+
+BLYNK_WRITE(2) {
+  int pinValue = param.asInt(); // Get value from Blynk (0 or 1)
+  digitalWrite(LED_PIN, pinValue);
+}
+
+void loop() {
+  Blynk.run();
+}
